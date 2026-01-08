@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 24px;
+            animation: float 15s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+        }
+
+        /* Music player */
+        .music-player {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Navigation */
+        nav {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 30px;
+            margin: 0 10px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: white;
+            color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.4);
+        }
+
+        /* Photo gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            animation: fadeIn 1s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-caption {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        /* Game section */
+        .game-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease;
+        }
+
+        .game-section h2 {
+            text-align: center;
+            color: #764ba2;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        #love-game {
+            text-align: center;
+        }
+
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .game-heart {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            filter: grayscale(100%);
+        }
+
+        .game-heart.active {
+            filter: grayscale(0%);
+            animation: pulse 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .game-score {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .game-message {
+            font-size: 1.2rem;
+            color: #667eea;
+            min-height: 30px;
+            margin-top: 20px;
+        }
+
+        /* Yearbook link */
+        .yearbook-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .yearbook-btn {
+            display: inline-block;
+            background: white;
+            color: #764ba2;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .yearbook-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+            .video-gallery {
+                grid-template-columns: 1fr;
+            }
+            .music-player {
+                top: 10px;
+                right: 10px;
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            .music-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+            .music-player span {
+                display: none;
+            }
+            header {
+                margin-top: 60px;
+            }
+        }
+
+        /* Birthday Cake with Candles */
+        .cake-container {
+            text-align: center;
+            margin: 40px auto 60px;
+            animation: cakeBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes cakeBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .cake {
+            width: 150px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin: 0 auto;
+        }
+
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 -2px 10px rgba(255,255,255,0.8);
+        }
+
+        .cake-layer {
+            position: absolute;
+            bottom: 30px;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            background: linear-gradient(135deg, #fecfef 0%, #ff9a9e 100%);
+            border-radius: 5px;
+        }
+
+        .candles {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .candle {
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(180deg, #ff6b6b 0%, #ee5a6f 100%);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 18px;
+            background: radial-gradient(circle, #fff700 0%, #ffaa00 40%, #ff6600 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.3s ease-in-out infinite alternate;
+            box-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600;
+        }
+
+        .flame::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 10px;
+            background: radial-gradient(circle, #ffffff 0%, #fff700 100%);
+            border-radius: 50%;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+            100% { transform: translateX(-50%) scaleY(1.1) scaleX(0.95); }
+        }
+
+        .cake-message {
+            margin-top: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px white;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .sparkle:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 30%; right: 10%; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { top: 50%; left: 15%; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { top: 20%; right: 5%; animation-delay: 0.9s; }
+        .sparkle:nth-child(5) { bottom: 20%; left: 10%; animation-delay: 1.2s; }
+
+        /* Video Section */
+        .video-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            animation: fadeIn 1s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            background: #000;
+            position: relative;
+            max-height: 100px;
+        }
+
+        .video-placeholder video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            max-height: 100px;
+        }
+
+        .video-caption {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div id="hearts-container"></div>
+
+    <!-- Music player -->
+    <div class="music-player">
+        <button class="music-btn" id="playBtn">▶</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Happy Birthday, My Love! 💖</h1>
+            <p class="subtitle">To the most beautiful soul in my life</p>
+        </header>
+
+        <!-- Birthday Cake with Candles -->
+        <div class="cake-container">
+            <div class="cake">
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="cake-layer"></div>
+                <div class="candles">
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cake-message">Make a wish! 🎂</div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <section class="photo-gallery">
+            <div class="photo-card">
+                <div class="photo-placeholder"><img src="https://lh3.googleusercontent.com/d/1pncKvTe8vp9KIo3KiVBAVN9GfFO32oaH"></div>
+                <div class="photo-caption">Our adventure together</div>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder"><img src="https://lh3.googleusercontent.com/d/1sodo31qYehCYRFLJ2iGRXBSMDeMlJD9y"></div>
+                <div class="photo-caption">The smile that melts my heart</div>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder"><img src="https://lh3.googleusercontent.com/d/1NGd88JwdmUNYBaedXiTFmtfrL7M8dsa8"></div>
+                <div class="photo-caption">Making memories with you</div>
+            </div>
+            <div class="photo-card">
+                <div class="photo-placeholder"><img src="https://lh3.googleusercontent.com/d/1mGn61807dqt5h9wAHujnr4oohqfQQlO3"></div>
+                <div class="photo-caption">Celebrating you today and always</div>
+            </div>
+        </section>
+
+        <!-- Video Gallery -->
+        <section class="video-section">
+            <h2 class="section-title">Happy Birthday My Girlllll 💏</h2>
+            <div class="video-gallery">
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        <video controls>
+                            <source src="assets/VN20260106_174821.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-caption">Beautiful memories captured</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        <video controls>
+                            <source src="assets/HBD.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-caption">Our adventures together</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Section -->
+        <section class="game-section">
+            <h2>Catch the Love! 💝</h2>
+            <div id="love-game">
+                <p>Click all the hearts to reveal a special message!</p>
+                <div class="heart-container" id="heartContainer"></div>
+                <div class="game-score">Hearts Caught: <span id="score">0</span>/10</div>
+                <div class="game-message" id="gameMessage"></div>
+            </div>
+        </section>
+
+        <!-- Yearbook Link -->
+        <div class="yearbook-link">
+            <a href="yearbook.html" class="yearbook-btn">📖 Open Our Digital Yearbook (coming soon)</a>
+        </div>
+    </div>
+
+    <!-- Audio element for music -->
+    <audio id="bgMusic" loop>
+        <source src="assets/HB.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Floating hearts background
+        function createFloatingHearts() {
+            const container = document.getElementById('hearts-container');
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💞'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Music player
+        const music = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                playBtn.textContent = '▶';
+            } else {
+                music.play();
+                playBtn.textContent = '⏸';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Love catching game
+        const heartContainer = document.getElementById('heartContainer');
+        const scoreEl = document.getElementById('score');
+        const messageEl = document.getElementById('gameMessage');
+        let score = 0;
+        const totalHearts = 10;
+
+        function initGame() {
+            for (let i = 0; i < totalHearts; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'game-heart';
+                heart.textContent = '💝';
+                heart.addEventListener('click', () => catchHeart(heart));
+                heartContainer.appendChild(heart);
+            }
+        }
+
+        function catchHeart(heart) {
+            if (!heart.classList.contains('active')) {
+                heart.classList.add('active');
+                score++;
+                scoreEl.textContent = score;
+                
+                if (score === totalHearts) {
+                    setTimeout(() => {
+                        messageEl.textContent = '🎉 Tum mera ek khwab ho, Raat ko raushan karti ek mehtaab ho. Jharno si chanchal Qaynat ka shabab ho. Phoolon ki angdaiyan, koyal ke suron ki shehnaiyan. Aakhon ke kajal ki pyas, subah ki shabnami mithas. Itni ranginiyon ko jab ikhja kiya, Qudrat ne tab tumko paida kiya 🎉';
+                    }, 500);
+                }
+            }
+        }
+
+        // Initialize
+        createFloatingHearts();
+        initGame();
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
